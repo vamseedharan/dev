@@ -1,0 +1,514 @@
+
+/* ========================================
+   1. GLOBAL STYLES
+======================================== */
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --page-bg: #fbf8f1;
+  --surface: #fffdf8;
+  --ink: #342b25;
+  --muted: #786f65;
+  --accent: #c58b24;
+  --accent-dark: #805019;
+  --accent-soft: #f6ead5;
+  --border: #e9dfd0;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background: var(--page-bg);
+  color: var(--ink);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+  background: var(--page-bg);
+}
+
+/* ========================================
+   2. SITE HEADER
+======================================== */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 12px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--accent-dark);
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.site-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+/* ========================================
+   3. HERO / SEARCH SECTION
+======================================== */
+.hero {
+  position: relative;
+  padding: 64px 24px 56px;
+  text-align: center;
+  background:
+    radial-gradient(
+      ellipse at top,
+      #fff8e9 0%,
+      transparent 68%
+    ),
+    linear-gradient(135deg, #f5ead7, #fcfaf5);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0 0 22px 22px;
+}
+
+.eyebrow {
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  max-width: 750px;
+  margin: 8px auto;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.hero p {
+  line-height: 1.7;
+}
+
+.search {
+  display: block;
+  width: min(100%, 560px);
+  margin: 30px auto 0;
+  padding: 16px 20px;
+  border: 1px solid #dfd2bf;
+  border-radius: 14px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 16px;
+  box-shadow: 0 6px 24px rgb(76 54 26 / 6%);
+  outline: none;
+}
+
+.search:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgb(168 111 34 / 12%);
+}
+
+/* ========================================
+   4. LIBRARY SECTION
+======================================== */
+.library {
+  width: 100%;
+  margin: 0 auto;
+  padding: 42px 0 64px;
+}
+
+.library h2 {
+  margin: 0 0 24px;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(25px, 3vw, 34px);
+}
+
+/* ========================================
+   5. CATEGORY FILTER CHIPS
+======================================== */
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 28px;
+}
+
+.category-chip {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 18px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.category-chip:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.category-chip.active {
+  color: #fff;
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+
+.category-chip:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ========================================
+   6. DOCUMENT GRID
+======================================== */
+.document-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  align-items: stretch;
+  margin-top: 24px;
+}
+
+/* ========================================
+   7. DOCUMENT CARDS
+======================================== */
+.document-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: 100%;
+  padding: 26px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: 0 5px 18px rgb(55 39 20 / 4%);
+  transition: transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.document-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgb(55 39 20 / 9%);
+}
+
+.pdf-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 18px;
+  border-radius: 15px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.category,
+.document-card .category {
+  margin: 0 0 8px;
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.document-card h3 {
+  margin: 8px 0 10px;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.document-card > p:not(.category) {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ========================================
+   8. READ / DOWNLOAD BUTTONS
+======================================== */
+.document-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.document-actions a {
+  flex: 1 1 0;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 6px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  transition: background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+/* Read PDF — saffron gold */
+.read-button {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.read-button:hover {
+  background: #a97016;
+  border-color: #a97016;
+  transform: translateY(-1px);
+}
+
+/* Download PDF — warm ivory */
+.document-actions .download-button {
+  background: #fff8e9;
+  color: #79551b;
+  border-color: #d8b66c;
+}
+
+.document-actions .download-button:hover {
+  background: #f5e8c9;
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.document-actions a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ========================================
+   9. GENERAL BUTTONS
+======================================== */
+button {
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ========================================
+   10. PDF READER
+======================================== */
+.reader-page {
+  min-height: 100vh;
+  background: #f8f2e6;
+}
+
+.reader-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.reader-toolbar h2 {
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.pdf-frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 85px);
+  margin: 0;
+  border: none;
+}
+
+.pdf-viewer {
+  width: 100%;
+}
+
+.reader {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: 16px;
+}
+
+.reader-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.reader-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.reader-actions a:not(.download-button) {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+/* Download button in the reader toolbar */
+.reader-toolbar .download-button,
+.reader-actions .download-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border: 1px solid #d8b66c;
+  border-radius: 9px;
+  background: #fff8e9;
+  color: #79551b;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reader-toolbar .download-button:hover,
+.reader-actions .download-button:hover {
+  background: #f5e8c9;
+}
+
+/* ========================================
+   11. RESPONSIVE LAYOUT
+======================================== */
+@media (max-width: 900px) {
+  .document-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 0 16px 40px;
+  }
+
+  .site-header {
+    padding: 10px 14px;
+  }
+
+  .site-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .site-brand {
+    gap: 8px;
+    font-size: 17px;
+  }
+
+  .hero {
+    padding: 36px 18px;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 8vw, 38px);
+  }
+
+  .search {
+    margin-top: 24px;
+    padding: 14px 16px;
+  }
+
+  .library {
+    padding: 30px 0 44px;
+  }
+
+  .document-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .document-card {
+    padding: 22px;
+  }
+
+  .document-actions {
+    gap: 10px;
+    padding-top: 20px;
+  }
+
+  .document-actions a {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+
+  .reader-header,
+  .reader-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .reader-toolbar {
+    padding: 14px 16px;
+  }
+}
+
+/* ========================================
+   12. REDUCED MOTION
+======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .document-card:hover,
+  .document-actions a:hover {
+    transform: none;
+  }
+}
