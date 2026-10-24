@@ -238,3 +238,46 @@ button:hover {
   height: calc(100vh - 85px);
   border: none;
 }
+
+.song-reader {
+  padding: 16px;
+}
+
+.song-search {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.song-search input {
+  flex: 1;
+  min-width: 180px;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.song-search button {
+  padding: 12px 18px;
+  background: #15803d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.song-search button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.song-pdf-canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 16px auto;
+  background: white;
+  box-shadow: 0 2px 8px #0002;
+}

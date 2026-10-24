@@ -1,0 +1,116 @@
+
+.song-reader {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.song-search-panel {
+  margin-bottom: 16px;
+}
+
+.song-search-panel label,
+.page-jump-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.song-search-row {
+  display: flex;
+  gap: 8px;
+}
+
+.song-search-row input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.song-search-row button,
+.pdf-pagination button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: #234e70;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.pdf-pagination button:disabled {
+  background: #cbd5e1;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.pdf-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.page-jump-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-jump-form label {
+  margin: 0;
+}
+
+.page-jump-form input {
+  width: 76px;
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.pdf-page-container {
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  padding: 12px;
+  background: #e5e7eb;
+  border-radius: 8px;
+}
+
+.pdf-page-container .react-pdf__Page {
+  max-width: 100%;
+  background: white;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 12%);
+}
+
+.pdf-page-container canvas {
+  display: block;
+  max-width: 100%;
+  height: auto !important;
+}
+
+.reader-error {
+  color: #b91c1c;
+}
+
+.reader-message,
+.reader-status {
+  margin: 10px 0;
+}
+
+@media (max-width: 600px) {
+  .pdf-pagination {
+    justify-content: center;
+  }
+
+  .song-search-row button {
+    padding-inline: 10px;
+  }
+}

@@ -1,6 +1,7 @@
 
 import { useMemo, useState } from "react";
 import "./App.css";
+import SongPdfReader from "./SongPdfReader";
 
 type DocumentItem = {
   id: number;
@@ -82,12 +83,11 @@ if (readerFileId) {
         </a>
       </header>
 
-      <iframe
-        title={readerTitle}
-        src={`https://drive.google.com/file/d/${readerFileId}/preview`}
-        className="pdf-frame"
-        allow="autoplay"
-      />
+      
+<SongPdfReader fileId={readerFileId} />
+  
+
+
     </main>
   );
 }
