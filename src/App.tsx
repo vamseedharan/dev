@@ -29,7 +29,7 @@ const documents: DocumentItem[] = [
     description: "100 songs on Sri Radha Devi",
     fileId: "1aVOeooNDY8PnYCYBGsl6o7odwY824bvQ",
     shortname:"RS",
-    PDFlanguage:"Tamil and Sanskrit",
+    PDFlanguage:"Tamil/Sanskrit",
   },
   {
     id: 3,
@@ -66,6 +66,15 @@ const documents: DocumentItem[] = [
     fileId: "1sFVPSVz2JFJd2lKzasmLB36tVD9VRoU8",
     shortname:"BR",
     PDFlanguage:"Sanskrit",
+  },
+  {
+    id: 7,
+    title: "Yugala Satakam",
+    category: "Keerthanams",
+    description: "100 songs on Radha Krishna Yugalam",
+    fileId: "17j0wg7czkpH9Q58s9oFx_zieM9yioLtD",
+    shortname:"YS",
+    PDFlanguage:"Tamil/Sanskrit",
   },
 ];
 
