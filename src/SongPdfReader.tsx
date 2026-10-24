@@ -1,267 +1,100 @@
 
-import { useEffect, useState } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
-
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
-import "./SongPdfReader.css";
-
-// Configure the PDF.js worker for Vite.
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url
-).toString();
+import { useState } from "react";
 
 type SongIndex = Record<string, Record<string, number>>;
 
-type SongPdfReaderProps = {
+type Props = {
   fileId: string;
 };
 
 function normalizeDigits(value: string): string {
+  const devanagariDigits = "०१२३४५६७८९";
+
   return value
     .replace(/[०-९]/g, (digit) =>
-      String("०१२३४५६७८९".indexOf(digit))
+      String(devanagariDigits.indexOf(digit))
     )
     .trim();
 }
 
-export default function SongPdfReader({
-  fileId,
-}: SongPdfReaderProps) {
-  const [songIndex, setSongIndex] = useState<SongIndex>({});
+export default function SongPdfReader({ fileId }: Props) {
   const [songNumber, setSongNumber] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [indexError, setIndexError] = useState("");
-  const [pdfError, setPdfError] = useState("");
-  const [loadingIndex, setLoadingIndex] = useState(true);
-  const [loadingPdf, setLoadingPdf] = useState(true);
-  const [pageInput, setPageInput] = useState("1");
-  const [message, setMessage] = useState("");
+  const [pageNumber, setPageNumber] = useState<number | null>(null);
+  const [status, setStatus] = useState("");
 
-  // Load the song-to-page mapping.
-  useEffect(() => {
-    let cancelled = false;
+  async function searchSong() {
+    const target = normalizeDigits(songNumber);
 
-    async function loadSongIndex() {
-      setLoadingIndex(true);
-      setIndexError("");
+    if (!/^\d+$/.test(target)) {
+      setStatus("Enter a song number, such as 108 or १०८.");
+      return;
+    }
 
-      try {
-        const response = await fetch("/song-index.json");
+    try {
+      setStatus("Searching song index...");
+      
+      const response = await fetch("/song-index.json");
 
-        if (!response.ok) {
-          throw new Error(
-            `Could not load song-index.json (${response.status}).`
-          );
-        }
-
-        const data = (await response.json()) as SongIndex;
-
-        if (!cancelled) {
-          setSongIndex(data);
-        }
-      } catch (error) {
-        if (!cancelled) {
-          setIndexError(
-            error instanceof Error
-              ? error.message
-              : "Could not load the song index."
-          );
-        }
-      } finally {
-        if (!cancelled) {
-          setLoadingIndex(false);
-        }
+      if (!response.ok) {
+        throw new Error("Could not load song-index.json.");
       }
-    }
 
-    void loadSongIndex();
+      const index: SongIndex = await response.json();
+      const pdfIndex = index[fileId];
+      const page = pdfIndex?.[target];
 
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+      if (!page || !Number.isInteger(page) || page < 1) {
+        setPageNumber(null);
+        setStatus("Song number not found in the index.");
+        return;
+      }
 
-  // Your API endpoint must fetch the Google Drive PDF server-side.
-  const pdfUrl = `/api/pdf?fileId=${encodeURIComponent(fileId)}`;
-
-  function handleDocumentLoadSuccess({
-    numPages,
-  }: {
-    numPages: number;
-  }) {
-    setTotalPages(numPages);
-    setCurrentPage(1);
-    setPageInput("1");
-    setLoadingPdf(false);
-    setPdfError("");
-  }
-
-  function handleDocumentLoadError(error: Error) {
-    setLoadingPdf(false);
-    setPdfError(
-      `Unable to load the PDF. ${error.message}`
-    );
-  }
-
-  function goToPage(page: number) {
-    if (
-      !Number.isInteger(page) ||
-      page < 1 ||
-      page > totalPages
-    ) {
-      setMessage(`Enter a page between 1 and ${totalPages}.`);
-      return;
-    }
-
-    setCurrentPage(page);
-    setPageInput(String(page));
-    setMessage("");
-  }
-
-  function searchSong() {
-    const normalizedNumber = normalizeDigits(songNumber);
-
-    if (!normalizedNumber || !/^\d+$/.test(normalizedNumber)) {
-      setMessage("Enter a valid song number, such as 108 or १०८.");
-      return;
-    }
-
-    // Prefer a mapping specifically for this Google Drive file ID.
-    // "Test" is supported temporarily for your existing sample JSON.
-    const fileSongIndex =
-      songIndex[fileId] ?? songIndex["Test"];
-
-    if (!fileSongIndex) {
-      setMessage(
-        "No song index exists for this PDF. Check song-index.json."
+      setPageNumber(page);
+      setStatus(`Song ${target} is listed on PDF page ${page}.`);
+    } catch (error) {
+      setStatus(
+        error instanceof Error
+          ? error.message
+          : "Unable to search the song index."
       );
-      return;
     }
-
-    const page = fileSongIndex[normalizedNumber];
-
-    if (typeof page !== "number") {
-      setMessage(`Song ${normalizedNumber} was not found in the index.`);
-      return;
-    }
-
-    if (totalPages > 0 && (page < 1 || page > totalPages)) {
-      setMessage(
-        `The indexed page ${page} is outside this PDF's page range.`
-      );
-      return;
-    }
-
-    goToPage(page);
-    setMessage(`Song ${normalizedNumber} — PDF page ${page}.`);
   }
 
-  function submitPage() {
-    const page = Number(pageInput);
-    goToPage(page);
-  }
+  const previewUrl =
+    `https://drive.google.com/file/d/${encodeURIComponent(fileId)}/preview` +
+    (pageNumber ? `#page=${pageNumber}` : "");
 
   return (
     <section className="song-reader">
-      <div className="song-search-panel">
-        <label htmlFor="song-number">Search by song number</label>
-
-        <div className="song-search-row">
-          <input
-            id="song-number"
-            type="text"
-            inputMode="numeric"
-            value={songNumber}
-            onChange={(event) => setSongNumber(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") searchSong();
-            }}
-            placeholder="e.g. 108 or १०८"
-          />
-
-          <button type="button" onClick={searchSong}>
-            Search
-          </button>
-        </div>
-
-        {loadingIndex && <p>Loading song index…</p>}
-        {indexError && <p className="reader-error">{indexError}</p>}
-        {message && <p className="reader-message">{message}</p>}
-      </div>
-
-      <div className="pdf-pagination">
-        <button
-          type="button"
-          onClick={() => goToPage(currentPage - 1)}
-          disabled={currentPage <= 1 || totalPages === 0}
-        >
-          ← Previous
-        </button>
-
-        <form
-          className="page-jump-form"
-          onSubmit={(event) => {
-            event.preventDefault();
-            submitPage();
+      <div className="song-search">
+        <input
+          value={songNumber}
+          onChange={(event) => setSongNumber(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              void searchSong();
+            }
           }}
-        >
-          <label htmlFor="pdf-page-number">Page</label>
-          <input
-            id="pdf-page-number"
-            type="number"
-            min={1}
-            max={totalPages || undefined}
-            value={pageInput}
-            onChange={(event) => setPageInput(event.target.value)}
-          />
-          <span>of {totalPages || "—"}</span>
-          <button type="submit" disabled={!totalPages}>
-            Go
-          </button>
-        </form>
+          placeholder="Song number: 108 or १०८"
+          aria-label="Song number"
+        />
 
-        <button
-          type="button"
-          onClick={() => goToPage(currentPage + 1)}
-          disabled={currentPage >= totalPages || totalPages === 0}
-        >
-          Next →
+        <button onClick={() => void searchSong()}>
+          Search Song
         </button>
       </div>
 
-      {loadingPdf && !pdfError && (
-        <p className="reader-status">Loading PDF…</p>
-      )}
+      {status && <p role="status">{status}</p>}
 
-      {pdfError && <p className="reader-error">{pdfError}</p>}
-
-      <div className="pdf-page-container">
-        <Document
-          file={pdfUrl}
-          onLoadSuccess={handleDocumentLoadSuccess}
-          onLoadError={handleDocumentLoadError}
-          loading={<p>Opening PDF…</p>}
-          error={<p>Could not open this PDF.</p>}
-        >
-          {totalPages > 0 && (
-            <Page
-              key={`${fileId}-${currentPage}`}
-              pageNumber={currentPage}
-              renderTextLayer
-              renderAnnotationLayer
-              width={Math.min(
-                900,
-                typeof window !== "undefined"
-                  ? window.innerWidth - 48
-                  : 800
-              )}
-            />
-          )}
-        </Document>
-      </div>
+      <iframe
+        key={`${fileId}-${pageNumber ?? "start"}`}
+        src={previewUrl}
+        title="PDF Reader"
+        width="100%"
+        height="700"
+        style={{ border: "none" }}
+        allow="autoplay"
+      />
     </section>
   );
 }

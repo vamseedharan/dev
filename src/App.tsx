@@ -1,7 +1,6 @@
 
 import { useMemo, useState } from "react";
 import "./App.css";
-import SongPdfReader from "./SongPdfReader";
 
 type DocumentItem = {
   id: number;
@@ -10,6 +9,7 @@ type DocumentItem = {
   description: string;
   fileId: string;
   shortname:string;
+  PDFlanguage:string;
 };
 
 const documents: DocumentItem[] = [
@@ -20,6 +20,7 @@ const documents: DocumentItem[] = [
     description: "100 songs on Lord Sri Krishna",
     fileId: "1lV1Hu1OiO40AcCMwHrw3_v71z8v1gMJH",
     shortname:"GS",
+    PDFlanguage:"Sanskrit",
   },
   {
     id: 2,
@@ -28,6 +29,7 @@ const documents: DocumentItem[] = [
     description: "100 songs on Sri Radha Devi",
     fileId: "1aVOeooNDY8PnYCYBGsl6o7odwY824bvQ",
     shortname:"RS",
+    PDFlanguage:"Tamil and Sanskrit",
   },
   {
     id: 3,
@@ -35,7 +37,17 @@ const documents: DocumentItem[] = [
     category: "Keerthanams",
     description: "100 songs on Lord Sri Rama",
     fileId: "1_D1e9DozmnWYtmx-ScJvureSa2JzygLI",
-    shortname:"RAS"
+    shortname:"RAS",
+    PDFlanguage:"Sanskrit",
+  },
+   {
+    id: 4,
+    title: "Aathmanivedanam",
+    category: "Shlokas",
+    description: "Grantha on Sri Venkateshwara Swamy",
+    fileId: "1FQQgS2zMp6sostWaY8znIOQUGGdpSQLJ",
+    shortname:"AN",
+    PDFlanguage:"Tamil",
   },
 ];
 
@@ -49,18 +61,31 @@ function getDownloadUrl(fileId: string) {
 
 export default function App() {
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [selected, setSelected] =
     useState<DocumentItem | null>(null);
 
-  const filteredDocuments = useMemo(() => {
-    const query = search.toLowerCase().trim();
+  const categories = useMemo(
+  () => ["All", ...new Set(documents.map((doc) => doc.category))],
+  []
+);
 
-    return documents.filter((doc) =>
+const filteredDocuments = useMemo(() => {
+  const query = search.toLowerCase().trim();
+
+  return documents.filter((doc) => {
+    const matchesSearch =
       `${doc.title} ${doc.category} ${doc.description}`
         .toLowerCase()
-        .includes(query)
-    );
-  }, [search]);
+        .includes(query);
+
+    const matchesCategory =
+      selectedCategory === "All" ||
+      doc.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+}, [search, selectedCategory]);
 
 
 const params = new URLSearchParams(window.location.search);
@@ -83,11 +108,12 @@ if (readerFileId) {
         </a>
       </header>
 
-      
-<SongPdfReader fileId={readerFileId} />
-  
-
-
+      <iframe
+        title={readerTitle}
+        src={`https://drive.google.com/file/d/${readerFileId}/preview`}
+        className="pdf-frame"
+        allow="autoplay"
+      />
     </main>
   );
 }
@@ -96,6 +122,7 @@ if (readerFileId) {
   return (
     <main className="app">
       <header className="hero">
+        <img src="/Srianna.png" alt="Website logo" className="site-logo" />
         <p className="eyebrow">SRI SRI ANNA DIGITAL LIBRARY</p>
         <h1>A repository of Sri Sri Anna</h1>
         <h1></h1>
@@ -113,7 +140,21 @@ if (readerFileId) {
 
       <section className="library">
         <h2>Explore documents</h2>
-
+        <div className="category-filters" aria-label="Filter by category">
+  {categories.map((category) => (
+    <button
+      key={category}
+      type="button"
+      className={`category-chip ${
+        selectedCategory === category ? "active" : ""
+      }`}
+      onClick={() => setSelectedCategory(category)}
+      aria-pressed={selectedCategory === category}
+    >
+      {category}
+    </button>
+  ))}
+</div>
         <div className="document-grid">
           {filteredDocuments.map((doc) => (
             <article className="document-card" key={doc.id}>
@@ -122,6 +163,8 @@ if (readerFileId) {
               <p className="category">{doc.category}</p>
               <h3>{doc.title}</h3>
               <p>{doc.description}</p>
+              <p>PDF Language:{doc.PDFlanguage}</p>
+              
 
               <div className="document-actions">
  
