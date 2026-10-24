@@ -10,6 +10,7 @@ type DocumentItem = {
   fileId: string;
   shortname:string;
   PDFlanguage:string;
+  icon:string;
 };
 
 const documents: DocumentItem[] = [
@@ -21,6 +22,7 @@ const documents: DocumentItem[] = [
     fileId: "1lV1Hu1OiO40AcCMwHrw3_v71z8v1gMJH",
     shortname:"GS",
     PDFlanguage:"Sanskrit",
+    icon: "/gs.jpg",
   },
   {
     id: 2,
@@ -30,6 +32,7 @@ const documents: DocumentItem[] = [
     fileId: "1aVOeooNDY8PnYCYBGsl6o7odwY824bvQ",
     shortname:"RS",
     PDFlanguage:"Tamil/Sanskrit",
+    icon: "/rs.jpg",
   },
   {
     id: 3,
@@ -39,6 +42,7 @@ const documents: DocumentItem[] = [
     fileId: "1_D1e9DozmnWYtmx-ScJvureSa2JzygLI",
     shortname:"RAS",
     PDFlanguage:"Sanskrit",
+    icon: "/ras.jpg",
   },
    {
     id: 4,
@@ -48,6 +52,7 @@ const documents: DocumentItem[] = [
     fileId: "1FQQgS2zMp6sostWaY8znIOQUGGdpSQLJ",
     shortname:"AN",
     PDFlanguage:"Tamil",
+    icon: "/at.jpg",
   },
   {
     id: 5,
@@ -57,6 +62,7 @@ const documents: DocumentItem[] = [
     fileId: "11smCc-YNB3HzhXSyo2HZyeb1l5ol-obg",
     shortname:"BS",
     PDFlanguage:"Sanskrit",
+    icon: "/bk.jpg",
   },
   {
     id: 6,
@@ -66,6 +72,7 @@ const documents: DocumentItem[] = [
     fileId: "1sFVPSVz2JFJd2lKzasmLB36tVD9VRoU8",
     shortname:"BR",
     PDFlanguage:"Sanskrit",
+    icon: "/br.jpg",
   },
   {
     id: 7,
@@ -75,6 +82,7 @@ const documents: DocumentItem[] = [
     fileId: "17j0wg7czkpH9Q58s9oFx_zieM9yioLtD",
     shortname:"YS",
     PDFlanguage:"Tamil/Sanskrit",
+    icon: "/ys.jpg",
   },
 ];
 
@@ -184,35 +192,57 @@ if (readerFileId) {
 </div>
         <div className="document-grid">
           {filteredDocuments.map((doc) => (
-            <article className="document-card" key={doc.id}>
-              <div className="pdf-icon">{doc.shortname}</div>
+            <article className="document-card" key={doc.id} onClick={() => {
+    window.open(
+      `/?pdf=${encodeURIComponent(doc.fileId)}&title=${encodeURIComponent(doc.title)}`,
+      "_blank"
+    );
+  }}
+  role="link"
+  tabIndex={0}
+  onKeyDown={(event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      window.open(
+        `/?pdf=${encodeURIComponent(doc.fileId)}&title=${encodeURIComponent(doc.title)}`,
+        "_blank"
+      );
+    }
+  }}
+  style={{
+    backgroundImage: `url("${doc.icon}")`,
+    backgroundSize: "cover",
+    backgroundPosition: "center top",
+    backgroundRepeat: "no-repeat",
+  }}>
 
-              <p className="category">{doc.category}</p>
-              <h3>{doc.title}</h3>
-              <p>{doc.description}</p>
-              <p>PDF Language:{doc.PDFlanguage}</p>
+      <div className="document-hover-title">
+  {doc.title}
+</div>
+              <div className="document-card-top">
+            <div className="pdf-icon">{doc.shortname}</div>
+
+         
+          </div>
+              
+              
+              
               
 
               <div className="document-actions">
  
+
+
+
 <a
-  className="read-button"
-  href={`/?pdf=${encodeURIComponent(doc.fileId)}&title=${encodeURIComponent(doc.title)}`}
+  className="download-button"
+  href={getDownloadUrl(doc.fileId)}
   target="_blank"
   rel="noopener noreferrer"
+  onClick={(event) => event.stopPropagation()}
 >
-  Read PDF
+  Download PDF
 </a>
-
-
-  <a
-    className="download-button"
-    href={getDownloadUrl(doc.fileId)}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Download PDF
-  </a>
 </div>
             </article>
           ))}

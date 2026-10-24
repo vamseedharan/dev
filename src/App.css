@@ -187,10 +187,17 @@ input {
 ======================================== */
 .document-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 26px;
-  align-items: stretch;
-  margin-top: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .document-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ========================================
@@ -200,8 +207,8 @@ input {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  height: 100%;
-  padding: 26px;
+ min-height: 380px;
+  padding: 24px;
   border: 1px solid var(--border);
   border-radius: 18px;
   background: var(--surface);
@@ -241,12 +248,13 @@ input {
 }
 
 .document-card h3 {
-  margin: 8px 0 10px;
+  margin: 6px 0 2px;
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 23px;
   line-height: 1.35;
   overflow-wrap: anywhere;
+  color:red;
 }
 
 .document-card > p:not(.category) {
@@ -511,4 +519,107 @@ button:focus-visible {
   .document-actions a:hover {
     transform: none;
   }
+}
+
+.document-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 12px;
+  color:red;
+}
+
+.pdf-icon,
+.pdf-card-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.pdf-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: #f2dfb9;
+  color: #80551b;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+
+.pdf-card-icon {
+  display: block;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 8px;
+}
+
+.document-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 16px;
+}
+
+.document-card-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+}
+
+.document-card-content {
+  position: relative;
+  padding: 20px;
+}
+
+.document-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.document-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.document-card:focus-visible {
+  outline: 3px solid #b8860b;
+  outline-offset: 3px;
+}
+
+.document-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.document-hover-title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.65);
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.document-card:hover .document-hover-title {
+  opacity: 1;
 }
