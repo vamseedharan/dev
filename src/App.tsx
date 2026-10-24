@@ -104,7 +104,7 @@ if (readerFileId) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          ⬇ Download PDF
+           Download PDF
         </a>
       </header>
 
