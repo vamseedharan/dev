@@ -1,13 +1,27 @@
 
+/* ========================================
+   1. GLOBAL STYLES
+======================================== */
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --page-bg: #fbf8f1;
+  --surface: #fffdf8;
+  --ink: #342b25;
+  --muted: #786f65;
+  --accent: #c58b24;
+  --accent-dark: #805019;
+  --accent-soft: #f6ead5;
+  --border: #e9dfd0;
 }
 
 body {
   margin: 0;
   font-family: Inter, "Segoe UI", Arial, sans-serif;
-  background: #f5f7fb;
-  color: #172033;
+  background: var(--page-bg);
+  color: var(--ink);
 }
 
 button,
@@ -16,243 +30,31 @@ input {
 }
 
 .app {
-  max-width: 1200px;
-  margin: auto;
-  padding: 32px 24px 60px;
-}
-
-.hero {
-  padding: 48px 36px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, #172554, #334e8c);
-  color: white;
-}
-
-.eyebrow,
-.category {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.hero h1 {
-  max-width: 650px;
-  font-size: clamp(30px, 5vw, 48px);
-  margin: 14px 0;
-  margin-bottom: 30px;
-}
-
-.hero p {
-  line-height: 1.7;
-}
-
-.search {
-  width: 100%;
-  max-width: 540px;
-  margin-top: 20px;
-  padding: 15px;
-  border: 0;
-  border-radius: 10px;
-  background: white;
-  color: #172033;
-}
-
-.library {
-  padding: 30px 0;
-}
-
-.document-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit, minmax(230px, 1fr)
-  );
-  gap: 20px;
-}
-
-.document-card {
-  padding: 24px;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  box-shadow: 0 5px 18px #17203308;
-}
-
-.pdf-icon {
-  display: grid;
-  place-items: center;
-  width: 54px;
-  height: 62px;
-  border-radius: 8px;
-  background: #fee2e2;
-  color: #b91c1c;
-  font-weight: 800;
-}
-
-.category {
-  color: #64748b;
-  margin-top: 20px;
-}
-
-.document-card h3 {
-  margin-bottom: 8px;
-}
-
-.document-card p:not(.category) {
-  min-height: 42px;
-  color: #64748b;
-  line-height: 1.6;
-}
-
-button {
-  border: 0;
-  border-radius: 9px;
-  padding: 12px 16px;
-  background: #1d4ed8;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #1e40af;
-}
-
-.reader {
-  margin-top: 20px;
-  padding: 20px;
-  background: white;
-  border-radius: 16px;
-}
-
-.reader-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.pdf-frame {
-  width: 100%;
-  height: 75vh;
-  margin: 16px 0;
-  border: 1px solid #dbe2ea;
-  border-radius: 8px;
-}
-
-.reader a {
-  color: #1d4ed8;
-}
-
-@media (max-width: 600px) {
-  .app {
-    padding: 16px;
-  }
-
-  .hero {
-    padding: 28px 20px;
-  }
-
-  .reader-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-}
-
-.document-actions,
-.reader-actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.download-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 16px;
-  border-radius: 9px;
-  background: #15803d;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.download-button:hover {
-  background: #166534;
-}
-
-.reader-actions a:not(.download-button) {
-  color: #1d4ed8;
-  text-decoration: underline;
-}
-
-.read-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 16px;
-  border-radius: 9px;
-  background: #1d4ed8;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.read-button:hover {
-  background: #1e40af;
-}
-
-.reader-page {
   min-height: 100vh;
-  background: #f1f5f9;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+  background: var(--page-bg);
 }
 
-.reader-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 16px 24px;
-  background: white;
-  border-bottom: 1px solid #ddd;
-}
-
-.download-button {
-  display: inline-block;
-  padding: 12px 16px;
-  background: #15803d;
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.pdf-frame {
-  display: block;
-  width: 100%;
-  height: calc(100vh - 85px);
-  border: none;
-}
-
-
+/* ========================================
+   2. SITE HEADER
+======================================== */
 .site-header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  gap: 16px;
   padding: 12px 24px;
-  background-color: #ffffff;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
 }
 
 .site-brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  color: #234e70;
+  color: var(--accent-dark);
   text-decoration: none;
   font-size: 20px;
   font-weight: 700;
@@ -264,89 +66,22 @@ button:hover {
   object-fit: contain;
 }
 
-@media (max-width: 600px) {
-  .site-header {
-    padding: 10px 14px;
-  }
-
-  .site-logo {
-    width: 44px;
-    height: 44px;
-  }
-
-  .site-brand {
-    font-size: 17px;
-  }
-}
-
-.category-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 16px 0 24px;
-}
-
-.category-chip {
-  border: 1px solid #cbd5e1;
-  border-radius: 999px;
-  padding: 9px 18px;
-  background: #ffffff;
-  color: #234e70;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.category-chip:hover {
-  background: #e8f0f7;
-}
-
-.category-chip.active {
-  background: #234e70;
-  color: #ffffff;
-  border-color: #234e70;
-}
-
-.category-chip:focus-visible {
-  outline: 2px solid #234e70;
-  outline-offset: 3px;
-}
-
-
-
-/* Modern devotional library theme */
-:root {
-  --page-bg: #fbf8f1;
-  --surface: #ffffff;
-  --ink: #342b25;
-  --muted: #786f65;
-  --accent: #a86f22;
-  --accent-dark: #805019;
-  --accent-soft: #f6ead5;
-  --border: #e9dfd0;
-}
-
-body {
-  margin: 0;
-  background: var(--page-bg);
-  color: var(--ink);
-  font-family: Inter, "Segoe UI", sans-serif;
-}
-
-.app {
-  min-height: 100vh;
-  background: var(--page-bg);
-}
-
+/* ========================================
+   3. HERO / SEARCH SECTION
+======================================== */
 .hero {
   position: relative;
   padding: 64px 24px 56px;
   text-align: center;
   background:
-    radial-gradient(ellipse at top, #fff8e9 0%, transparent 68%),
+    radial-gradient(
+      ellipse at top,
+      #fff8e9 0%,
+      transparent 68%
+    ),
     linear-gradient(135deg, #f5ead7, #fcfaf5);
   border-bottom: 1px solid var(--border);
+  border-radius: 0 0 22px 22px;
 }
 
 .eyebrow {
@@ -354,27 +89,32 @@ body {
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.18em;
+  text-transform: uppercase;
   margin-bottom: 18px;
 }
 
 .hero h1 {
+  max-width: 750px;
+  margin: 8px auto;
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(30px, 5vw, 52px);
-  line-height: 1.15;
-  margin: 8px 0;
+  line-height: 1.2;
   letter-spacing: -0.035em;
+}
+
+.hero p {
+  line-height: 1.7;
 }
 
 .search {
   display: block;
   width: min(100%, 560px);
-  box-sizing: border-box;
   margin: 30px auto 0;
   padding: 16px 20px;
   border: 1px solid #dfd2bf;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.92);
+  border-radius: 14px;
+  background: #fff;
   color: var(--ink);
   font-size: 16px;
   box-shadow: 0 6px 24px rgb(76 54 26 / 6%);
@@ -386,19 +126,25 @@ body {
   box-shadow: 0 0 0 4px rgb(168 111 34 / 12%);
 }
 
+/* ========================================
+   4. LIBRARY SECTION
+======================================== */
 .library {
-  width: min(1180px, calc(100% - 40px));
+  width: 100%;
   margin: 0 auto;
   padding: 42px 0 64px;
 }
 
 .library h2 {
-  margin: 0 0 22px;
+  margin: 0 0 24px;
+  color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(25px, 3vw, 34px);
-  color: var(--ink);
 }
 
+/* ========================================
+   5. CATEGORY FILTER CHIPS
+======================================== */
 .category-filters {
   display: flex;
   flex-wrap: wrap;
@@ -415,7 +161,9 @@ body {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 180ms ease;
+  transition: background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
 .category-chip:hover {
@@ -429,45 +177,62 @@ body {
   border-color: var(--accent-dark);
 }
 
-.document-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%, 260px), 1fr)
-  );
-  gap: 22px;
+.category-chip:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
 }
 
+/* ========================================
+   6. DOCUMENT GRID
+======================================== */
+.document-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  align-items: stretch;
+  margin-top: 24px;
+}
+
+/* ========================================
+   7. DOCUMENT CARDS
+======================================== */
 .document-card {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+  height: 100%;
   padding: 26px;
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 18px;
   background: var(--surface);
   box-shadow: 0 5px 18px rgb(55 39 20 / 4%);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition: transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .document-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 32px rgb(55 39 20 / 9%);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgb(55 39 20 / 9%);
 }
 
 .pdf-icon {
   display: grid;
   place-items: center;
+  flex-shrink: 0;
   width: 58px;
   height: 58px;
-  margin-bottom: 20px;
-  border-radius: 17px;
+  margin-bottom: 18px;
+  border-radius: 15px;
   background: var(--accent-soft);
   color: var(--accent-dark);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 800;
 }
 
+.category,
 .document-card .category {
+  margin: 0 0 8px;
   color: var(--accent-dark);
   font-size: 12px;
   font-weight: 800;
@@ -476,49 +241,59 @@ body {
 }
 
 .document-card h3 {
-  margin: 10px 0;
+  margin: 8px 0 10px;
+  color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 23px;
-  line-height: 1.3;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .document-card > p:not(.category) {
+  margin: 0;
   color: var(--muted);
   line-height: 1.7;
 }
 
+/* ========================================
+   8. READ / DOWNLOAD BUTTONS
+======================================== */
 .document-actions {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
   margin-top: auto;
-  padding-top: 20px;
+  padding-top: 24px;
 }
 
 .document-actions a {
-  flex: 1;
+  flex: 1 1 0;
   min-width: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 12px 8px;
+  padding: 12px 6px;
+  border: 1px solid transparent;
   border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
   text-decoration: none;
-  white-space: nowrap;
-  box-sizing: border-box;
-  transition: background-color 0.2s ease,
-              transform 0.2s ease;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  transition: background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
 }
 
+/* Read PDF — saffron gold */
 .read-button {
-  background: #c58b24;
-  color: #ffffff;
-  border: 1px solid #c58b24;
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
 }
 
 .read-button:hover {
@@ -528,20 +303,212 @@ body {
 }
 
 /* Download PDF — warm ivory */
-.download-button {
+.document-actions .download-button {
   background: #fff8e9;
   color: #79551b;
-  border: 1px solid #d8b66c;
+  border-color: #d8b66c;
 }
 
-.download-button:hover {
+.document-actions .download-button:hover {
   background: #f5e8c9;
-  border-color: #c58b24;
+  border-color: var(--accent);
   transform: translateY(-1px);
 }
 
-/* Keyboard accessibility */
 .document-actions a:focus-visible {
-  outline: 3px solid #c58b24;
+  outline: 3px solid var(--accent);
   outline-offset: 3px;
+}
+
+/* ========================================
+   9. GENERAL BUTTONS
+======================================== */
+button {
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ========================================
+   10. PDF READER
+======================================== */
+.reader-page {
+  min-height: 100vh;
+  background: #f8f2e6;
+}
+
+.reader-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.reader-toolbar h2 {
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.pdf-frame {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 85px);
+  margin: 0;
+  border: none;
+}
+
+.pdf-viewer {
+  width: 100%;
+}
+
+.reader {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: 16px;
+}
+
+.reader-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.reader-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.reader-actions a:not(.download-button) {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+/* Download button in the reader toolbar */
+.reader-toolbar .download-button,
+.reader-actions .download-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border: 1px solid #d8b66c;
+  border-radius: 9px;
+  background: #fff8e9;
+  color: #79551b;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reader-toolbar .download-button:hover,
+.reader-actions .download-button:hover {
+  background: #f5e8c9;
+}
+
+/* ========================================
+   11. RESPONSIVE LAYOUT
+======================================== */
+@media (max-width: 900px) {
+  .document-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+}
+
+@media (max-width: 600px) {
+  .app {
+    padding: 0 16px 40px;
+  }
+
+  .site-header {
+    padding: 10px 14px;
+  }
+
+  .site-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .site-brand {
+    gap: 8px;
+    font-size: 17px;
+  }
+
+  .hero {
+    padding: 36px 18px;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 8vw, 38px);
+  }
+
+  .search {
+    margin-top: 24px;
+    padding: 14px 16px;
+  }
+
+  .library {
+    padding: 30px 0 44px;
+  }
+
+  .document-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .document-card {
+    padding: 22px;
+  }
+
+  .document-actions {
+    gap: 10px;
+    padding-top: 20px;
+  }
+
+  .document-actions a {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+
+  .reader-header,
+  .reader-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .reader-toolbar {
+    padding: 14px 16px;
+  }
+}
+
+/* ========================================
+   12. REDUCED MOTION
+======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .document-card:hover,
+  .document-actions a:hover {
+    transform: none;
+  }
 }

@@ -49,6 +49,24 @@ const documents: DocumentItem[] = [
     shortname:"AN",
     PDFlanguage:"Tamil",
   },
+  {
+    id: 5,
+    title: "Bkathakolahala stotram",
+    category: "Shlokas",
+    description: "Grantha on Kolahalan",
+    fileId: "11smCc-YNB3HzhXSyo2HZyeb1l5ol-obg",
+    shortname:"BS",
+    PDFlanguage:"Sanskrit",
+  },
+  {
+    id: 6,
+    title: "Bhaktaratnavali",
+    category: "Shlokas",
+    description: "Grantha on various bhatas",
+    fileId: "1sFVPSVz2JFJd2lKzasmLB36tVD9VRoU8",
+    shortname:"BR",
+    PDFlanguage:"Sanskrit",
+  },
 ];
 
 function getPreviewUrl(fileId: string) {
