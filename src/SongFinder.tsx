@@ -1,7 +1,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import "./SongFinder.css";
-import SongPdfModal from "./SongPdfModal";
+//import SongPdfModal from "./SongPdfModal";
 
 type SongIndex = Record<string, Record<string, number>>;
 
@@ -31,11 +31,11 @@ export default function SongFinder({ books }: SongFinderProps) {
   const [songIndex, setSongIndex] = useState<SongIndex>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-const [selectedSong, setSelectedSong] = useState<{
+/*const [selectedSong, setSelectedSong] = useState<{
   fileId: string;
   title: string;
   pageNumber: number;
-} | null>(null);
+} | null>(null);*/
 
 
   useEffect(() => {
