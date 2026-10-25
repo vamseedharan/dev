@@ -162,7 +162,7 @@ function normalizeSongNumber(value: string): string {
 
 export default function App() {
   const [search, setSearch] = useState("");
-  //const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
