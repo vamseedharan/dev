@@ -4,12 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "npm run generate:pdfs && vite",
+    "build": "npm run generate:pdfs && tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+     "generate:pdfs": "node scripts/generate-pdf-manifest.mjs" 
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1156.0",
+    "@aws-sdk/s3-request-presigner": "^3.1156.0",
+    "@supabase/supabase-js": "^2.118.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-pdf": "^11.0.0"
