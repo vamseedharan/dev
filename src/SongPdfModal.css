@@ -1,0 +1,67 @@
+
+.song-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(25, 16, 8, 0.72);
+}
+
+.song-modal {
+  display: flex;
+  flex-direction: column;
+  width: min(1100px, 100%);
+  height: min(90vh, 950px);
+  overflow: hidden;
+  border-radius: 14px;
+  background: #fff8e7;
+  color: #4a2e12;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.song-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-bottom: 1px solid #ead9b8;
+}
+
+.song-modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.song-modal-header p {
+  margin: 4px 0 0;
+}
+
+.song-modal-close {
+  border: 0;
+  background: transparent;
+  color: #8b4513;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.song-modal-iframe {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  background: white;
+}
+
+@media (max-width: 600px) {
+  .song-modal-backdrop {
+    padding: 6px;
+  }
+
+  .song-modal {
+    height: 94vh;
+  }
+}

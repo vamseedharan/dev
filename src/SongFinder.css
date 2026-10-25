@@ -1,0 +1,72 @@
+
+.song-finder {
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 24px;
+  box-sizing: border-box;
+  border: 1px solid #ead9b8;
+  border-radius: 16px;
+  background: #fff8e7;
+  color: #4a2e12;
+}
+
+.song-finder h2 {
+  margin-top: 0;
+  color: #8b4513;
+}
+
+.song-finder label {
+  display: block;
+  margin: 16px 0 6px;
+  font-weight: 600;
+}
+
+.song-finder select,
+.song-finder input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  border: 1px solid #d6b779;
+  border-radius: 8px;
+  background: white;
+  font: inherit;
+}
+
+.song-result {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid #ead9b8;
+  border-radius: 12px;
+  background: white;
+}
+
+.song-result h3 {
+  margin-top: 0;
+}
+
+.song-result button {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background: #a65b18;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .song-finder {
+    padding: 16px;
+  }
+
+  .song-result {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
